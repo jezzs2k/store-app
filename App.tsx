@@ -9,45 +9,11 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
-import {
-  useDimensions,
-  useDeviceOrientation,
-} from '@react-native-community/hooks';
+import {StyleSheet, View} from 'react-native';
+import ViewImageScreen from './src/screens/ViewImageScreen';
 
 const App = () => {
-  const orientation = useDeviceOrientation();
-  console.log(useDimensions());
-  return (
-    <View
-      style={{
-        backgroundColor: 'dodgerblue',
-        flexBasis: 100,
-        flex: -1,
-        flexShrink: 1,
-        height: 100,
-        alignContent: 'center',
-      }}>
-      <View
-        style={{
-          backgroundColor: 'red',
-          width: 100,
-          height: 100,
-        }}></View>
-      <View
-        style={{
-          backgroundColor: 'blue',
-          width: 100,
-          height: 100,
-        }}></View>
-      <View
-        style={{
-          backgroundColor: 'orange',
-          width: 100,
-          height: 100,
-        }}></View>
-    </View>
-  );
+  return <ViewImageScreen />;
 };
 
 const styles = StyleSheet.create({});
