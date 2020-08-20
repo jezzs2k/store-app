@@ -9,10 +9,10 @@ interface IProps {
   color?: String;
 }
 
-const AppButton = ({title, _onPress, color}: IProps) => {
+const AppButton = ({title, _onPress, color = 'primary'}: IProps) => {
   return (
     <TouchableOpacity
-      style={[styles.button, {backgroundColor: colors[color || 'primary']}]}
+      style={[styles.button, {backgroundColor: colors[`${color}`]}]}
       activeOpacity={0.5}
       onPress={_onPress}>
       <Text style={styles.text}>{title}</Text>

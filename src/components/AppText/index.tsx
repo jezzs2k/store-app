@@ -1,8 +1,17 @@
 import React from 'react';
 import {Text, StyleSheet, Platform} from 'react-native';
 
-const AppText = ({children, style}: any) => {
-  return <Text style={[styles.container, style]}>{children}</Text>;
+import AppTextInput from './AppTextInput';
+import AppPicker from './AppPicker';
+import PickerItem from './PickerItem';
+import CategoryPickerItem from './CategoryPickerItem';
+
+const AppText = ({children, style, _numberOfLine}: any) => {
+  return (
+    <Text style={[styles.container, style]} numberOfLines={_numberOfLine}>
+      {children}
+    </Text>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -21,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppText;
+export {AppText, AppTextInput, AppPicker, PickerItem, CategoryPickerItem};
