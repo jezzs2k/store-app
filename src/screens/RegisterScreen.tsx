@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 import AppButton from '../components/Button/AppButton';
 import colors from '../assets/colors/colors';
-import {AppText, AppTextInput} from '../components/AppText';
+import {AppTextInput} from '../components/AppText';
 import ErrorMessage from '../components/Error';
 
 type RootStackParamList = {
@@ -23,8 +23,9 @@ type Props = {
   navigation: ProfileScreenNavigationProp;
 };
 
-const LoginScreen = ({navigation}: Props) => {
+const RegisterScreen = ({navigation}: Props) => {
   const _validationSchema = Yup.object().shape({
+    username: Yup.string().required().min(1, 'Name at least one character!'),
     email: Yup.string().required().email().label('Email'),
     password: Yup.string().required().min(6).label('Password'),
   });
@@ -39,11 +40,21 @@ const LoginScreen = ({navigation}: Props) => {
         />
       </View>
       <Formik
-        initialValues={{email: '', password: ''}}
+        initialValues={{username: '', email: '', password: ''}}
         onSubmit={(values) => console.log(values)}
         validationSchema={_validationSchema}>
         {({handleChange, handleSubmit, errors, handleBlur, touched}) => (
           <>
+            <ErrorMessage error={errors.username} visible={touched.username} />
+            <AppTextInput
+              icon="user"
+              _placeholder="Username..."
+              _onBlur={handleBlur('username')}
+              _autoCapitalize="none"
+              _keyboardType="default"
+              _autoCorrect={false}
+              _onChangeText={handleChange('username')}
+            />
             <ErrorMessage error={errors.email} visible={touched.email} />
             <AppTextInput
               icon="user"
@@ -66,14 +77,15 @@ const LoginScreen = ({navigation}: Props) => {
               _multiline={true}
               _onChangeText={handleChange('password')}
             />
-            <TouchableOpacity onPress={() => console.log('Forgot password ?')}>
-              <AppText style={styles.text}>Forgot password !</AppText>
-            </TouchableOpacity>
-            <AppButton title="Sign In" _onPress={handleSubmit} />
+
             <AppButton
-              title="Register"
-              _onPress={() => navigation?.navigate('Register')}
+              title="Sign Up"
+              _onPress={handleSubmit}
               color={`secondary`}
+            />
+            <AppButton
+              title="Login"
+              _onPress={() => navigation?.navigate('Login')}
             />
           </>
         )}
@@ -103,4 +115,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
-export default LoginScreen;
+export default RegisterScreen;

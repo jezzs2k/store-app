@@ -9,21 +9,42 @@
  */
 
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View, Text, Button, Image} from 'react-native';
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from '@react-navigation/stack';
+import {NavigationContainer, RouteProp} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import MessageScreen from './src/screens/MessageScreen';
-import Icon from './src/components/icon/Icon';
-import ListItem from './src/components/List/ListItem';
-import colors from './src/assets/colors/colors';
-import AccountScreen from './src/screens/AccountScreen';
-import ListingsScreen from './src/screens/ListingsScreen';
-import AppTextInput from './src/components/AppText/AppTextInput';
-import AppPicker from './src/components/AppText/AppPicker';
-import LoginScreen from './src/screens/LoginScreen';
-import ListingEditScreen from './src/screens/ListingEditScreen';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import WelComeScreen from './src/screens/WelcomeScreen';
+
+//Navigators
+import AuthNavigators from './src/Navigation/AuthNavigators';
+import NavigationTheme from './src/Navigation/NavigationTheme';
+
+// type RootStackParamList = {
+//   Details: {id: string; otherParam: string};
+// };
+
+// type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+// type ProfileScreenNavigationProp = StackNavigationProp<
+//   RootStackParamList,
+//   'Details'
+// >;
+
+// type Props = {
+//   route: ProfileScreenRouteProp;
+//   navigation: ProfileScreenNavigationProp;
+// };
 
 const App = () => {
-  return <ListingEditScreen />;
+  return (
+    <NavigationContainer theme={NavigationTheme}>
+      <AuthNavigators />
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({});

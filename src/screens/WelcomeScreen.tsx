@@ -1,10 +1,25 @@
 import React from 'react';
 import {StyleSheet, ImageBackground, View, Image, Text} from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import colors from '../assets/colors/colors';
 import AppButton from '../components/Button/AppButton';
 
-const WelComeScreen = () => {
+type RootStackParamList = {
+  Login: {name: string};
+  Register: {name: string};
+  WelCome: undefined;
+};
+type ProfileScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'WelCome'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+const WelComeScreen = ({navigation}: Props) => {
   return (
     <ImageBackground
       style={styles.background}
@@ -17,17 +32,20 @@ const WelComeScreen = () => {
             uri: 'https://image.flaticon.com/icons/png/512/124/124023.png',
           }}
         />
-        <View> 
+        <View>
           <Text style={styles.text_logo}>Sell anything You don't need !!</Text>
         </View>
       </View>
 
       <View style={styles.containerBtn}>
-        <AppButton title="Login" _onPress={() => console.log('Login')} />
+        <AppButton
+          title="Login"
+          _onPress={() => navigation?.navigate('Login', {name: 'Welcome!'})}
+        />
         <AppButton
           title="Register"
           color="secondary"
-          _onPress={() => console.log('Register')}
+          _onPress={() => navigation?.navigate('Register', {name: 'Welcome!'})}
         />
       </View>
     </ImageBackground>

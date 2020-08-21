@@ -4,6 +4,8 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+import com.imagepicker.permissions.OnImagePickerPermissionsCallback; // <- add this import
+import com.facebook.react.modules.core.PermissionListener; // <- add this import
 public class MainActivity extends ReactActivity {
 
   /**

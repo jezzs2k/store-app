@@ -14,6 +14,7 @@ interface Props {
   _secureTextEntry?: boolean;
   _multiline?: boolean;
   _onChangeText: any;
+  _onScrollTop?: () => void;
   _onBlur: any;
   _width?: number | string;
 }
@@ -29,6 +30,7 @@ const AppTextInput = ({
   _onChangeText,
   _onBlur,
   _width = '100%',
+  _onScrollTop,
 }: Props) => {
   return (
     <View style={[styles.container, {width: _width}]}>
@@ -45,6 +47,7 @@ const AppTextInput = ({
         multiline={_multiline && false}
         onChangeText={_onChangeText}
         onBlur={_onBlur}
+        onFocus={_onScrollTop}
       />
     </View>
   );
