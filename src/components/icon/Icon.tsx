@@ -30,7 +30,6 @@ const Icon = ({
         borderRadius: borderRadius,
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
       }}>
       <AntDesign name={name} color={color} size={size} onPress={_onPress} />
     </View>

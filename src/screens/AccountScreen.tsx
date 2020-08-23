@@ -1,10 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import Icon from '../components/icon/Icon';
 import ListItem from '../components/List/ListItem';
 import ListSeparator from '../components/Separators/ListSeparator';
 import colors from '../assets/colors/colors';
+
+type ProfileScreenNavigationProp = StackNavigationProp<any>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
 
 const MenuItems = [
   {
@@ -15,6 +22,7 @@ const MenuItems = [
       color: colors.while,
       backgroundColor: colors.primary,
     },
+    targetScreen: 'Messages',
   },
   {
     id: 2,
@@ -24,10 +32,11 @@ const MenuItems = [
       color: colors.while,
       backgroundColor: colors.secondary,
     },
+    targetScreen: 'Listings_basic',
   },
 ];
 
-const AccountScreen = () => {
+const AccountScreen = ({navigation}: Props) => {
   return (
     <View>
       <View style={styles.container}>
@@ -49,9 +58,11 @@ const AccountScreen = () => {
                   name={item.icon.name}
                   color={item.icon.color}
                   backGroundColor={item.icon.backgroundColor}
+                  borderRadius={50}
                 />
               }
               key={`${item.id}`}
+              _onPress={() => navigation?.navigate(`${item.targetScreen}`)}
             />
           )}
           ItemSeparatorComponent={ListSeparator}
@@ -69,6 +80,7 @@ const AccountScreen = () => {
               name="logout"
               color={colors.black}
               backGroundColor={colors.while}
+              borderRadius={50}
             />
           }
         />

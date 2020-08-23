@@ -2,10 +2,10 @@ import React from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {View, Image, StyleSheet, TouchableHighlight} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FastImage from 'react-native-fast-image';
 
 import {AppText} from '../AppText';
 import colors from '../../assets/colors/colors';
-import Card from '../cards/card';
 
 interface Props {
   title: string;
@@ -17,7 +17,7 @@ interface Props {
   imageComponent?: any;
   _chevronIcon?: any;
   _renderRightActions?: any;
-  _onPress?: () => void;
+  _onPress?: any;
 }
 
 const ListItem = ({
@@ -43,7 +43,7 @@ const ListItem = ({
           <View style={styles.listDetail}>
             {imageComponent && imageComponent}
             {image && (
-              <Image
+              <FastImage
                 style={styles.image}
                 source={{
                   uri: image,
@@ -67,7 +67,7 @@ const ListItem = ({
                 <AntDesign
                   name={_chevronIcon}
                   color={colors.medium}
-                  size={20}
+                  size={25}
                 />
               )}
             </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 2,
     elevation: 6,
-    marginVertical: 8,
+    marginVertical: 4,
   },
   listDetail: {
     paddingVertical: 8,

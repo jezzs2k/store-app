@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, FlatList, Button} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, FlatList, View, Button} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
 
-import Card from '../components/cards/card';
-import ListSeparator from '../components/Separators/ListSeparator';
-import {ListingsFactory} from '../api/listings';
+import ListingItem from '../components/List/ListItem';
 import colors from '../assets/colors/colors';
+import {ListingsFactory} from '../api/listings';
 import LoadingAnimation from '../components/Animated/LoadingAnimation';
+
+const listingsFactory = new ListingsFactory();
 
 type RootStackParamList = {
   Details: {listing: any};
-  Account: {screen: string; initial: boolean};
 };
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
@@ -21,14 +20,12 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 
 type Props = {
   navigation: ProfileScreenNavigationProp;
-  routes: ProfileScreenRouteProp;
 };
 
-const ListingsScreen = ({navigation}: Props) => {
+const ListingBasicInfo = ({navigation}: Props) => {
   const [Listings, setListings]: any = useState([]);
   const [error, setError]: any = useState(false);
   const [loading, serLoading]: any = useState(false);
-  const listingsFactory = new ListingsFactory();
 
   useEffect(() => {
     fetchData();
@@ -57,7 +54,6 @@ const ListingsScreen = ({navigation}: Props) => {
       <Button title={'Retry'} onPress={fetchData} color={colors.secondary} />
     );
   }
-
   return loading ? (
     <LoadingAnimation />
   ) : (
@@ -66,30 +62,23 @@ const ListingsScreen = ({navigation}: Props) => {
         data={Listings}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({item}) => (
-          <Card
+          <ListingItem
             title={item.title}
-            imageUrl={item?.images[0]?.url}
             subTitle={item.price}
-            _onPress={() =>
-              navigation?.navigate('Details', {
-                listing: {...item},
-              })
-            }
+            _backgroundColor={colors.while}
+            _textColor={colors.danger}
+            _borderRadius={50}
+            _chevronIcon="enter"
+            _onPress={() => navigation.navigate('Details', {listing: item})}
           />
         )}
-        ItemSeparatorComponent={ListSeparator}
-        refreshing={loading}
-        onRefresh={fetchData}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: '100%',
-  },
+  container: {},
 });
 
-export default ListingsScreen;
+export default ListingBasicInfo;

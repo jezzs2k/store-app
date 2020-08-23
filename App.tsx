@@ -23,7 +23,10 @@ import WelComeScreen from './src/screens/WelcomeScreen';
 //Navigators
 import AuthNavigators from './src/Navigation/AuthNavigators';
 import NavigationTheme from './src/Navigation/NavigationTheme';
-
+import AppNavigator from './src/Navigation/AppNavigators';
+import NetInfo from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-community/async-storage';
+import ListingBasicInfo from './src/screens/ListingBasicInfo';
 // type RootStackParamList = {
 //   Details: {id: string; otherParam: string};
 // };
@@ -42,7 +45,7 @@ import NavigationTheme from './src/Navigation/NavigationTheme';
 const App = () => {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      <AuthNavigators />
+      <AppNavigator />
     </NavigationContainer>
   );
 };

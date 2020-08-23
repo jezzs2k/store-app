@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: colors.blackLight,
+    marginBottom: 18,
+    borderRadius: 50,
   },
 });
 

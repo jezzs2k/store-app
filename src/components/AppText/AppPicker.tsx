@@ -18,8 +18,8 @@ interface Props {
   icon?: string;
   _placeholder: string;
   items: any;
-  selectedItem: any;
-  onSelectItem: Function;
+  selectedCategory: any;
+  onSelectCategory: Function;
   _setFieldValue?: any;
   CategoryPickerItem?: any;
   _width?: number | string;
@@ -29,8 +29,8 @@ const AppTextInput = ({
   icon,
   _placeholder,
   items,
-  selectedItem,
-  onSelectItem,
+  selectedCategory,
+  onSelectCategory,
   _setFieldValue,
   CategoryPickerItem = PickerItem,
   _width = '100%',
@@ -54,7 +54,7 @@ const AppTextInput = ({
           </View>
           <View style={styles.text}>
             <AppText style={[StyleDefault.default]}>
-              {selectedItem ? selectedItem.label : _placeholder}
+              {selectedCategory ? selectedCategory.label : _placeholder}
             </AppText>
           </View>
 
@@ -79,8 +79,8 @@ const AppTextInput = ({
               key={`${item.id}`}
               _onPress={() => {
                 onCloseModal();
-                _setFieldValue('category', item.label);
-                onSelectItem(item);
+                _setFieldValue('category', item);
+                onSelectCategory(item);
               }}
             />
           )}

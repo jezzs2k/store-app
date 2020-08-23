@@ -1,28 +1,37 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
-import AppText from '../AppText';
+import {AppText} from '../AppText';
 import Colors from '../../assets/colors/colors';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+
 interface Props {
-  image: string;
+  imageUrl: string;
   title: string;
   subTitle: string;
+  _onPress: () => void;
 }
 
-const Card = ({image, title, subTitle}: Props) => {
+const Card = ({imageUrl, title, subTitle, _onPress}: Props) => {
   return (
-    <View style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: image,
-        }}
-      />
-      <View style={styles.cardDetails}>
-        <AppText style={styles.title}>{title}</AppText>
-        <AppText style={styles.subTitle}>{subTitle}</AppText>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={_onPress}
+      style={styles.container}>
+      <View>
+        <FastImage
+          style={styles.image}
+          source={{
+            uri: imageUrl,
+          }}
+        />
+        <View style={styles.cardDetails}>
+          <AppText style={styles.title}>{title}</AppText>
+          <AppText style={styles.subTitle}>{subTitle}$</AppText>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -30,9 +39,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.while,
     width: '100%',
-    borderRadius: 15,
+    borderRadius: 5,
     overflow: 'hidden',
-    marginVertical: 10,
+    marginBottom: 8,
+    paddingHorizontal: 8,
   },
   image: {
     width: '100%',

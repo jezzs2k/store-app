@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {View, Button} from 'react-native';
+import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -11,6 +11,9 @@ import colors from '../assets/colors/colors';
 import ImageMultipleInput from '../components/Image/ImageMultipleInput';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Location} from '../hooks/useLocation';
+import UploadVisible from './UploadModal';
+
+import {ListingsFactory} from '../api/listings';
 
 const categories = [
   {
@@ -69,21 +72,23 @@ const categories = [
   },
 ];
 
+const _validationSchema = Yup.object().shape({
+  title: Yup.string().required().nullable().label('Title'),
+  price: Yup.string().required().nullable().max(10000000000000).label('Price'),
+  category: Yup.string().required().nullable().label('Category'),
+  description: Yup.string().nullable().label('Description'),
+  imageUrls: Yup.string().min(1, 'Please select at least one image!'),
+});
+
 const ListingEditScreen = () => {
+  const listingsFactory = new ListingsFactory();
+
   const location = Location();
+
   const observer: any = useRef();
-  const [selectedItem, setSelectedItem] = useState(categories[0]);
-  const _validationSchema = Yup.object().shape({
-    title: Yup.string().required().nullable().label('Title'),
-    price: Yup.string()
-      .required()
-      .nullable()
-      .max(10000000000000)
-      .label('Price'),
-    category: Yup.string().required().nullable().label('Category'),
-    description: Yup.string().required().nullable().label('Description'),
-    imageUrls: Yup.string().min(1, 'Please select at least one image!'),
-  });
+  const [selectCategory, setSelectedCategory] = useState(categories[0]);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const handleAddImage = (
     url: string,
@@ -96,7 +101,6 @@ const ListingEditScreen = () => {
 
     return null;
   };
-
   const removeImage = (
     url: string,
     imageUrls: string[],
@@ -108,25 +112,38 @@ const ListingEditScreen = () => {
     );
   };
 
+  const handlePostData = (values: any) => {
+    setUploadVisible(true);
+    listingsFactory
+      .postList({...values, location}, (progress: any) => {
+        setUploadProgress(progress.loaded / progress.total);
+      })
+      .then((res) => {
+        setSelectedCategory(categories[0]);
+      })
+      .catch((error) => {
+        setUploadVisible(false);
+        console.log(error);
+      });
+  };
+
   return (
     <ScrollView
       ref={observer}
       onContentSizeChange={() =>
         observer.current?.scrollTo({x: 100, y: 200, animated: true})
       }>
-      <Button title="test" onPress={() => console.log(location)} />
       <Formik
         initialValues={{
           title: '',
           price: '',
           description: '',
-          category: selectedItem.label,
+          category: selectCategory,
           imageUrls: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handlePostData}
         validationSchema={_validationSchema}>
         {({
-          handleChange,
           handleSubmit,
           handleBlur,
           setFieldValue,
@@ -135,6 +152,11 @@ const ListingEditScreen = () => {
           values,
         }) => (
           <View style={{paddingHorizontal: 8}}>
+            <UploadVisible
+              progress={uploadProgress}
+              visible={uploadVisible}
+              onDone={() => setUploadVisible(false)}
+            />
             <ErrorMessage
               error={errors.imageUrls}
               visible={touched.imageUrls}
@@ -151,7 +173,9 @@ const ListingEditScreen = () => {
             <ErrorMessage error={errors.title} visible={touched.title} />
             <AppTextInput
               _placeholder="Title"
-              _onChangeText={handleChange('title')}
+              _onChangeText={setFieldValue}
+              name="title"
+              values={values}
               _onBlur={handleBlur('title')}
               _autoCorrect={false}
               _autoCapitalize="none"
@@ -160,7 +184,9 @@ const ListingEditScreen = () => {
             <ErrorMessage error={errors.price} visible={touched.price} />
             <AppTextInput
               _placeholder="Price"
-              _onChangeText={handleChange('price')}
+              _onChangeText={setFieldValue}
+              name="price"
+              values={values}
               _onBlur={handleBlur('price')}
               _autoCorrect={false}
               _autoCapitalize="none"
@@ -176,8 +202,8 @@ const ListingEditScreen = () => {
             <AppPicker
               _placeholder="category"
               items={categories}
-              selectedItem={selectedItem}
-              onSelectItem={setSelectedItem}
+              selectedCategory={selectCategory}
+              onSelectCategory={setSelectedCategory}
               _setFieldValue={setFieldValue}
               CategoryPickerItem={CategoryPickerItem}
               _width="50%"
@@ -188,7 +214,9 @@ const ListingEditScreen = () => {
             />
             <AppTextInput
               _placeholder="Description"
-              _onChangeText={handleChange('description')}
+              _onChangeText={setFieldValue}
+              name="description"
+              values={values}
               _onBlur={handleBlur('description')}
               _autoCorrect={false}
               _autoCapitalize="none"

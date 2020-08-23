@@ -1,23 +1,43 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
+import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-import AppText from '../components/AppText';
+import {AppText} from '../components/AppText';
 import colors from '../assets/colors/colors';
 import LisItem from '../components/List/ListItem';
+import AppButton from '../components/Button/AppButton';
 
-const ListingDetailsScreen = () => {
+type RootStackParamList = {
+  Details: {listing: any};
+  Account: {screen: string; initial: boolean};
+};
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Details'
+>;
+type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+
+type Props = {
+  route: ProfileScreenRouteProp;
+  navigation: ProfileScreenNavigationProp;
+};
+
+const ListingDetailsScreen = ({route, navigation}: Props) => {
+  const {listing} = route.params;
+
   return (
     <View style={styles.ListingDetail}>
       <Image
         style={styles.image}
         source={{
-          uri:
-            'https://image.freepik.com/free-photo/pleased-redhead-girl-thinking-making-right-choice_176420-19266.jpg',
+          uri: listing.images[0].url,
         }}
       />
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>Red jack don't sell</AppText>
-        <AppText style={styles.price}>$400</AppText>
+        <AppText style={styles.title}>{listing?.title}</AppText>
+        <AppText style={styles.price}>{listing?.price}$</AppText>
       </View>
       <View style={styles.userContainer}>
         <LisItem
@@ -26,6 +46,13 @@ const ListingDetailsScreen = () => {
           subTitle="5 listings"
         />
       </View>
+      <AppButton
+        title="To Message"
+        color={'redLight'}
+        _onPress={() =>
+          navigation.navigate('Account', {screen: 'Messages', initial: false})
+        }
+      />
     </View>
   );
 };
@@ -52,6 +79,7 @@ const styles = StyleSheet.create({
   userContainer: {
     marginVertical: 30,
   },
+  btn_text: {},
 });
 
 export default ListingDetailsScreen;

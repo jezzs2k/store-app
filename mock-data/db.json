@@ -1,0 +1,57 @@
+{
+  "listings": [
+    {
+      "images": [
+        {
+          "name": "image0",
+          "type": "image/jpeg",
+          "url": "content://media/external/images/media/21102"
+        }
+      ],
+      "id": 661.1065403322995,
+      "title": "haevy bag",
+      "price": "200000",
+      "location": {
+        "latitude": 21.0091756,
+        "longitude": 105.7665647
+      },
+      "description": "hieu"
+    },
+    {
+      "images": [
+        {
+          "name": "image0",
+          "type": "image/jpeg",
+          "url": "content://media/external/images/media/21054"
+        }
+      ],
+      "id": 152.14827055272517,
+      "title": "hieu vu thanh",
+      "price": "2000000",
+      "location": {
+        "latitude": 21.0091756,
+        "longitude": 105.7665647
+      },
+      "description": "☺☺☺☺☺☺"
+    },
+    {
+      "images": [
+        {
+          "name": "image0",
+          "type": "image/jpeg",
+          "url": "content://media/external/images/media/20999"
+        }
+      ],
+      "id": 418.62904676919254,
+      "title": "trà sửa",
+      "price": "3",
+      "location": {
+        "latitude": 21.0092998,
+        "longitude": 105.7664947
+      },
+      "description": "hieu order"
+    }
+  ],
+  "messages": [],
+  "users": []
+}

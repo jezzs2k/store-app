@@ -12,6 +12,8 @@ interface Props {
   _keyboardType?: any;
   _autoCorrect?: boolean;
   _secureTextEntry?: boolean;
+  name: string;
+  values: any;
   _multiline?: boolean;
   _onChangeText: any;
   _onScrollTop?: () => void;
@@ -28,6 +30,8 @@ const AppTextInput = ({
   _secureTextEntry,
   _multiline,
   _onChangeText,
+  name,
+  values,
   _onBlur,
   _width = '100%',
   _onScrollTop,
@@ -45,9 +49,10 @@ const AppTextInput = ({
         autoCorrect={_autoCorrect || false}
         secureTextEntry={_secureTextEntry || false}
         multiline={_multiline && false}
-        onChangeText={_onChangeText}
+        onChangeText={(text) => _onChangeText(name, text)}
         onBlur={_onBlur}
         onFocus={_onScrollTop}
+        value={values[name]}
       />
     </View>
   );

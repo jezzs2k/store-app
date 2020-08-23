@@ -51,7 +51,7 @@ const MessageScreen = () => {
             key={`${item.id}`}
           />
         )}
-        ItemSeparatorComponent={() => <ListSeparator />}
+        ItemSeparatorComponent={ListSeparator}
         refreshing={_refreshing}
         onRefresh={() => {
           setMessage((messages: any) => {
