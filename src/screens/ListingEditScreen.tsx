@@ -3,10 +3,11 @@ import {View} from 'react-native';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
-import {AppTextInput, AppPicker} from '../components/AppText';
+import AppPicker from '../components/AppText/AppPicker';
+import {AppTextInput} from '../components/AppText';
 import AppButton from '../components/Button/AppButton';
 import ErrorMessage from '../components/Error';
-import {CategoryPickerItem} from '../components/AppText';
+import CategoryPickerItem from '../components/AppText/CategoryPickerItem';
 import colors from '../assets/colors/colors';
 import ImageMultipleInput from '../components/Image/ImageMultipleInput';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -222,7 +223,11 @@ const ListingEditScreen = () => {
               _autoCapitalize="none"
               _keyboardType="default"
             />
-            <AppButton _onPress={handleSubmit} title="Post" color="danger" />
+            <AppButton
+              _onPress={handleSubmit}
+              title="Post"
+              color={colors.danger}
+            />
           </View>
         )}
       </Formik>

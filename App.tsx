@@ -7,49 +7,67 @@
  *
  * @format
  */
+import React, { useState, useEffect } from 'react';
+import { Image, View, Button } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 
-import React, {useState} from 'react';
-import {StyleSheet, View, Text, Button, Image} from 'react-native';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-} from '@react-navigation/stack';
-import {NavigationContainer, RouteProp} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import WelComeScreen from './src/screens/WelcomeScreen';
-
-//Navigators
 import AuthNavigators from './src/Navigation/AuthNavigators';
 import NavigationTheme from './src/Navigation/NavigationTheme';
 import AppNavigator from './src/Navigation/AppNavigators';
-import NetInfo from '@react-native-community/netinfo';
-import AsyncStorage from '@react-native-community/async-storage';
-import ListingBasicInfo from './src/screens/ListingBasicInfo';
-// type RootStackParamList = {
-//   Details: {id: string; otherParam: string};
-// };
+import OfflineNetWorkNotice from './src/components/Networking/OffliceNetWorkNotice';
+import AuthContext from './src/Authcontext/authContext';
+import { getTokenStore } from './src/Authcontext/StoreToken';
+import { User } from './src/api/User';
+import CommentItem from './src/components/comments/comment'
 
-// type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
-// type ProfileScreenNavigationProp = StackNavigationProp<
-//   RootStackParamList,
-//   'Details'
-// >;
-
-// type Props = {
-//   route: ProfileScreenRouteProp;
-//   navigation: ProfileScreenNavigationProp;
-// };
-
+const userMethod = new User();
 const App = () => {
-  return (
-    <NavigationContainer theme={NavigationTheme}>
-      <AppNavigator />
-    </NavigationContainer>
-  );
-};
+  const [user, setUser]: any = useState(null);
+  const [token, setToken]: any = useState(null);
+  const [loading, setLoading]: any = useState(false);
 
-const styles = StyleSheet.create({});
+  const checkToken = async () => {
+    setLoading(true);
+    const token = await getTokenStore();
+    setLoading(false);
+    setToken(token);
+  };
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      userMethod
+        .getUsers(token)
+        .then((res) => {
+          setUser(() => ({ ...res.user }));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [token]);
+
+  return (
+    // <AuthContext.Provider value={{user, setUser, token, setToken}}>
+    //   <OfflineNetWorkNotice />
+    //   {!loading ? (
+    //       <NavigationContainer theme={NavigationTheme}>
+    //         {!token ? <AuthNavigators /> : <AppNavigator />}
+    //       </NavigationContainer>
+    //     ) : null}
+    //   </AuthContext.Provider>
+    // );
+
+    <CommentItem />
+  )
+}
 
 export default App;

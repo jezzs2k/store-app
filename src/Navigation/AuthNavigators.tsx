@@ -9,7 +9,7 @@ const AuthStack = createStackNavigator();
 
 export default () => {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator screenOptions={{headerShown: false}}>
       <AuthStack.Screen
         name="WelCome"
         component={WelComeScreen}

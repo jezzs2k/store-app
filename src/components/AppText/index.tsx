@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {AppText, AppTextInput, AppPicker, PickerItem, CategoryPickerItem};
+export {AppText, AppTextInput};

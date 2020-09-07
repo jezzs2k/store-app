@@ -12,7 +12,7 @@
     "android:run": "concurrently -r 'react-native start' 'react-native run-android -- --reset-cache'",
     "cache": "npm cache clean --force && npm cache verify && rm -rf $TMPDIR/react-* && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-* && rm -rf $TMPDIR/npm-*",
     "release": "react-native run-android --variant=release",
-    "mock-data": "json-server ./mock-data/db.json"
+    "mock-data": "json-server ./mock-data/db.json --watch"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.0",
@@ -23,9 +23,12 @@
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "@types/jsonwebtoken": "^8.5.0",
     "apisauce": "^1.1.2",
     "axios": "^0.19.2",
     "formik": "^2.1.5",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "lottie-react-native": "^3.5.0",
     "moment": "^2.27.0",
     "react": "16.13.1",
@@ -39,7 +42,9 @@
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.6",
     "react-native-screens": "^2.10.1",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^7.0.0",
+    "shortid": "^2.2.15",
     "yup": "^0.29.3"
   },
   "devDependencies": {

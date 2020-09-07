@@ -10,8 +10,9 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import colors from '../../assets/colors/colors';
 
+import PickerItem from './PickerItem';
 import StyleDefault from '../../assets/styles/styleTextDefault';
-import {AppText, PickerItem} from './index';
+import {AppText} from './index';
 import ListSeparator from '../Separators/ListSeparator';
 
 interface Props {

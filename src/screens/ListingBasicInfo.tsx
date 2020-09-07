@@ -5,19 +5,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import ListingItem from '../components/List/ListItem';
 import colors from '../assets/colors/colors';
 import {ListingsFactory} from '../api/listings';
-import LoadingAnimation from '../components/Animated/LoadingAnimation';
+import ActivityIndicator from '../components/Animated/ActivityIndicator';
 
 const listingsFactory = new ListingsFactory();
 
 type RootStackParamList = {
   Details: {listing: any};
 };
-
 type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
-
 type Props = {
   navigation: ProfileScreenNavigationProp;
 };
@@ -36,13 +34,12 @@ const ListingBasicInfo = ({navigation}: Props) => {
       serLoading(true);
       const res = await listingsFactory.getListings();
       serLoading(false);
+
       if (!res.ok) {
         setError(true);
         return;
       }
-
       setError(false);
-
       setListings(res?.data.sort(() => -1));
     } catch (error) {
       console.log(error);
@@ -55,7 +52,7 @@ const ListingBasicInfo = ({navigation}: Props) => {
     );
   }
   return loading ? (
-    <LoadingAnimation />
+    <ActivityIndicator />
   ) : (
     <View style={styles.container}>
       <FlatList

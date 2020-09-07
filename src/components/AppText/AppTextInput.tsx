@@ -7,17 +7,17 @@ import StyleDefault from '../../assets/styles/styleTextDefault';
 
 interface Props {
   icon?: string;
-  _placeholder: string;
+  _placeholder?: string;
   _autoCapitalize?: any;
   _keyboardType?: any;
   _autoCorrect?: boolean;
   _secureTextEntry?: boolean;
-  name: string;
-  values: any;
+  name?: string;
+  values?: any;
   _multiline?: boolean;
   _onChangeText: any;
   _onScrollTop?: () => void;
-  _onBlur: any;
+  _onBlur?: any;
   _width?: number | string;
 }
 
@@ -52,7 +52,7 @@ const AppTextInput = ({
         onChangeText={(text) => _onChangeText(name, text)}
         onBlur={_onBlur}
         onFocus={_onScrollTop}
-        value={values[name]}
+        value={name ? values[name] : ''}
       />
     </View>
   );
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
     shadowColor: colors.dark,
     shadowOffset: {width: 2, height: 3},
     shadowRadius: 2,
-    elevation: 2,
   },
   icon: {
     marginLeft: 15,
@@ -77,6 +76,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: 10,
     color: colors.dark,
+    paddingRight: 30,
   },
 });
 

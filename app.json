@@ -1,4 +1,9 @@
 {
   "name": "Store_App",
-  "displayName": "Store_App"
+  "displayName": "Store_App",
+  "splash": {
+    "image": "./src/assets/image/logo.png",
+    "resizeMode": "cover",
+    "backgroundColor": "#ffffff"
+  }
 }

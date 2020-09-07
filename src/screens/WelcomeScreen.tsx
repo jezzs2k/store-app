@@ -44,7 +44,7 @@ const WelComeScreen = ({navigation}: Props) => {
         />
         <AppButton
           title="Register"
-          color="secondary"
+          color={colors.secondary}
           _onPress={() => navigation?.navigate('Register', {name: 'Welcome!'})}
         />
       </View>

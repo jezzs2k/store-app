@@ -1,10 +1,10 @@
 import React from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {View, Image, StyleSheet, TouchableHighlight} from 'react-native';
+import { View, Image, StyleSheet, TouchableHighlight } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FastImage from 'react-native-fast-image';
 
-import {AppText} from '../AppText';
+import { AppText } from '../AppText';
 import colors from '../../assets/colors/colors';
 
 interface Props {
@@ -38,7 +38,7 @@ const ListItem = ({
         <View
           style={[
             styles.container,
-            {backgroundColor: _backgroundColor, borderRadius: _borderRadius},
+            { backgroundColor: _backgroundColor, borderRadius: _borderRadius },
           ]}>
           <View style={styles.listDetail}>
             {imageComponent && imageComponent}
@@ -52,7 +52,7 @@ const ListItem = ({
             )}
             <View style={styles.textWrap}>
               <AppText
-                style={[styles.title, {color: _textColor}]}
+                style={[styles.title, { color: _textColor }]}
                 _numberOfLine={1}>
                 {title}
               </AppText>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     shadowColor: colors.black,
-    shadowOffset: {width: 3, height: 4},
+    shadowOffset: { width: 3, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 2,
     elevation: 6,

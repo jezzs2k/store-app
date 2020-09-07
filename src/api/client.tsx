@@ -1,18 +1,15 @@
-import {create} from 'apisauce';
+import { create } from 'apisauce';
 
-import {CatchStore} from '../Utility/Catch';
+import { CatchStore } from '../Utility/Catch';
 
 const catchStore = new CatchStore();
-
 const apiClient = create({
-  baseURL: 'http://d5ee5aed8ffa.ngrok.io',
+  baseURL: 'http://5a6b07a3c0da.ngrok.io',
 });
-
 const get = apiClient.get;
 
 apiClient.get = async (url: string, params: any, axiosConfig: any) => {
   const response = await get(url, params, axiosConfig);
-
   if (response.ok) {
     catchStore.setStored(url, response.data);
   }

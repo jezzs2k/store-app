@@ -6,13 +6,19 @@ import colors from '../../assets/colors/colors';
 interface IProps {
   title: string;
   _onPress: () => void;
-  color?: String;
+  color?: string;
+  width?: any;
 }
 
-const AppButton = ({title, _onPress, color = 'primary'}: IProps) => {
+const AppButton = ({
+  title,
+  _onPress,
+  color = colors.primary,
+  width = '100%',
+}: IProps) => {
   return (
     <TouchableOpacity
-      style={[styles.button, {backgroundColor: colors[`${color}`]}]}
+      style={[styles.button, {backgroundColor: color, width: width}]}
       activeOpacity={0.5}
       onPress={_onPress}>
       <Text style={styles.text}>{title}</Text>

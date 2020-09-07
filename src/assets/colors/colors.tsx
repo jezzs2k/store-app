@@ -12,4 +12,6 @@ export default {
   light: '#f5f6fa',
   lightMinium: '#dcdde1',
   dark: '#2f3640',
+  blackBlur: '#222f3e',
+  blueLight: "#3498db"
 };

@@ -16,7 +16,6 @@ export class ListingsFactory {
         });
     });
   }
-
   public async postList(
     listing: {
       title: string;
@@ -34,15 +33,9 @@ export class ListingsFactory {
       };
       const data: any = {};
       data.images = [];
-      // const data: any = new FormData();
-
-      // data.append('id', Math.random() * 1000);
       data.id = Math.random() * 1000;
-      // data.append('title', listing.title);
       data.title = listing.title;
-      // data.append('price', listing.price);
       data.price = listing.price;
-      // data.append('categoryId', listing.category.id);
       listing.imageUrls.forEach((image, index) => {
         data.images = [
           ...data.images,
@@ -54,11 +47,9 @@ export class ListingsFactory {
         ];
       });
       if (listing.location) {
-        // data.append('location', listing.location);
         data.location = listing.location;
       }
       if (listing.description) {
-        // data.append('description', listing.description);
         data.description = listing.description;
       }
 
@@ -66,6 +57,21 @@ export class ListingsFactory {
         .post(ENDPOINTS, data, config)
         .then((res) => {
           resolve(res);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  public newListing(totalListingCurrent: number): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      client
+        .get(ENDPOINTS)
+        .then((res: any) => {
+          const isMatch = res?.data?.length === totalListingCurrent;
+
+          resolve(isMatch);
         })
         .catch((error) => {
           reject(error);

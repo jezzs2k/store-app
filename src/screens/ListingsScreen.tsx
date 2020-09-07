@@ -7,7 +7,8 @@ import Card from '../components/cards/card';
 import ListSeparator from '../components/Separators/ListSeparator';
 import {ListingsFactory} from '../api/listings';
 import colors from '../assets/colors/colors';
-import LoadingAnimation from '../components/Animated/LoadingAnimation';
+import ActivityIndicator from '../components/Animated/ActivityIndicator';
+const listingsFactory = new ListingsFactory();
 
 type RootStackParamList = {
   Details: {listing: any};
@@ -18,7 +19,6 @@ type ProfileScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Details'
 >;
-
 type Props = {
   navigation: ProfileScreenNavigationProp;
   routes: ProfileScreenRouteProp;
@@ -28,7 +28,6 @@ const ListingsScreen = ({navigation}: Props) => {
   const [Listings, setListings]: any = useState([]);
   const [error, setError]: any = useState(false);
   const [loading, serLoading]: any = useState(false);
-  const listingsFactory = new ListingsFactory();
 
   useEffect(() => {
     fetchData();
@@ -45,7 +44,6 @@ const ListingsScreen = ({navigation}: Props) => {
       }
 
       setError(false);
-
       setListings(res?.data.sort(() => -1));
     } catch (error) {
       console.log(error);
@@ -58,30 +56,31 @@ const ListingsScreen = ({navigation}: Props) => {
     );
   }
 
-  return loading ? (
-    <LoadingAnimation />
-  ) : (
-    <View style={styles.container}>
-      <FlatList
-        data={Listings}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={({item}) => (
-          <Card
-            title={item.title}
-            imageUrl={item?.images[0]?.url}
-            subTitle={item.price}
-            _onPress={() =>
-              navigation?.navigate('Details', {
-                listing: {...item},
-              })
-            }
-          />
-        )}
-        ItemSeparatorComponent={ListSeparator}
-        refreshing={loading}
-        onRefresh={fetchData}
-      />
-    </View>
+  return (
+    <>
+      <ActivityIndicator visible={loading} />
+      <View style={styles.container}>
+        <FlatList
+          data={Listings}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({item}) => (
+            <Card
+              title={item.title}
+              imageUrl={item?.images[0]?.url}
+              subTitle={item.price}
+              _onPress={() =>
+                navigation?.navigate('Details', {
+                  listing: {...item},
+                })
+              }
+            />
+          )}
+          ItemSeparatorComponent={ListSeparator}
+          refreshing={loading}
+          onRefresh={fetchData}
+        />
+      </View>
+    </>
   );
 };
 
