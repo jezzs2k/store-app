@@ -15,7 +15,7 @@ export class Message {
                     date: new Date()
                 })
                 .then((res: any) => {
-                    resolve({ message: res?.data });
+                    resolve({ message: {status: "ok"} });
                 })
                 .catch((error) => {
                     reject(error);
@@ -26,8 +26,8 @@ export class Message {
     public getMessage(listingId: string): Promise<any> {
         return new Promise(async (resolve, reject) => {
 
-            client.get(ENDPOINTS + `?listingId=` + data.listingId).then(res => {
-                console.log(res)
+            client.get(ENDPOINTS + `?listingId=` + listingId).then(res => {
+                resolve(res?.data);
             }).catch(error => {
                 console.log(error);
                 reject(error)

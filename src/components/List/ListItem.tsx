@@ -18,11 +18,14 @@ interface Props {
   _chevronIcon?: any;
   _renderRightActions?: any;
   _onPress?: any;
+  _styleImage?: any;
+  _styleList?: any;
+  _styleTitle?: any;
 }
 
 const ListItem = ({
   title,
-  image,
+  image="https://image.freepik.com/free-photo/winning-success-man-happy-ecstatic-celebrating-being-winner-dynamic-energetic-image-male-model_155003-9259.jpg",
   subTitle,
   _backgroundColor = colors.while,
   _borderRadius = 0,
@@ -31,6 +34,9 @@ const ListItem = ({
   imageComponent,
   _onPress,
   _renderRightActions,
+  _styleImage,
+  _styleList,
+  _styleTitle,
 }: Props) => {
   return (
     <Swipeable renderRightActions={_renderRightActions}>
@@ -39,12 +45,13 @@ const ListItem = ({
           style={[
             styles.container,
             { backgroundColor: _backgroundColor, borderRadius: _borderRadius },
+            _styleList
           ]}>
           <View style={styles.listDetail}>
             {imageComponent && imageComponent}
             {image && (
               <FastImage
-                style={styles.image}
+                style={[styles.image, _styleImage]}
                 source={{
                   uri: image,
                 }}
@@ -52,7 +59,7 @@ const ListItem = ({
             )}
             <View style={styles.textWrap}>
               <AppText
-                style={[styles.title, { color: _textColor }]}
+                style={[styles.title, { color: _textColor }, _styleTitle]}
                 _numberOfLine={1}>
                 {title}
               </AppText>
